@@ -3,7 +3,12 @@ package com.test;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.mapper.ObjectMapper;
+import io.restassured.mapper.ObjectMapperDeserializationContext;
+import io.restassured.mapper.ObjectMapperSerializationContext;
+import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
+import java.util.Arrays;
 import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -47,15 +52,25 @@ public class PostTest {
     @Test
     public void testHomeTaskCheckCountOfIdEqualsOne() {
 
-        Posts post = given().spec(spec).get("/posts").body().as(Posts.class);
-        assertEquals(personsExpected, Posts.getPost());
+        ResponseBody body = given().spec(spec).get("/posts").body();
+        Post[] posts = body.as(Post[].class);
 
-        Post actualPost = given().spec(spec).
-                expect().
-                statusCode(200).
-                when().
-                get("posts").as(Post.class);
-        assertEquals(actualPost, expectedPost);
+// Java 8 solution:
+//        long count = Arrays.stream(post).filter(e -> e.getUserId() == 1).count();
+//        System.out.println("count = " + count);
+
+        int counter = 0;
+
+        for (Post post: posts) {
+            if (post.getUserId() == 1){
+               ++counter;
+            }
+        }
+//        System.out.println("counter = " + counter);
+
+        assertEquals(counter, 10, "Expect 10 posts");
+
+
     }
 
 }

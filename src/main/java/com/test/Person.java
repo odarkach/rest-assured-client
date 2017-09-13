@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Data
+
 //@EqualsAndHashCode(of = {"lastName"}) equals хэшкод только lastName
 //@EqualsAndHashCode(exclude = {"lastName"}) equals хэшкод всего, кроме lastName
 @AllArgsConstructor
