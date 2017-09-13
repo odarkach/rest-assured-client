@@ -23,7 +23,14 @@ import lombok.experimental.Accessors;
 
 // Мапперы для перезаписи элементов для джейсона и для хмл. Показывают название поля(атрибута), из которого брать элементы в xml/json
 //    @XmlElement (name = "firstName") or @JsonProperty("firstName")
-//    @XmlRootElement (name  = "people") or @JsonRootName("person")
+//    @XmlRootElement (name  = "person") or @JsonRootName("person")  (это если хмл такого вида:
+// <people>
+    // <person id="1">
+    //<email>test@hascode.com</email>
+    //<firstName>Tim</firstName>
+    //<lastName>Testerman</lastName>
+    //</person>
+//</people>)
 
 public class Person {
 

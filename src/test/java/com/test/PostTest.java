@@ -69,8 +69,6 @@ public class PostTest {
 //        System.out.println("counter = " + counter);
 
         assertEquals(counter, 10, "Expect 10 posts");
-
-
     }
 
 }

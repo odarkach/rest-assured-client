@@ -6,6 +6,7 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -15,6 +16,7 @@ import static com.test.TestUtils.getPeople;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class UserTest {
 
@@ -130,6 +132,41 @@ public class UserTest {
 
         Cars cars = given().spec(spec).get("/cars/xml").body().as(Cars.class);
         assertEquals(carsExpected, cars.getCar());
+    }
+
+
+    @Test
+    public void testGetJsonMapKeyAndValue(){
+        MyPairRS pairRS = given().spec(spec).
+                expect().
+                        statusCode(200).
+                        when().
+                        get("detail/json/map").as(MyPairRS.class);
+
+// Не сликшом правильный подход к тестированию делать так
+//        assertTrue(pairRS.getMap().containsValue("Comedy"));
+//        assertTrue(pairRS.getMap().containsKey(new MyPair("Abbott", "Costello")));
+
+        HashMap<MyPair, String> expectedMap = new HashMap<>();
+        expectedMap.put(new MyPair("Abbott", "Costello"), "Comedy");
+        assertTrue(pairRS.getMap().equals(expectedMap));
+
+    }
+
+    @Test
+    public void testGetJsonMapKeyAndValueCars(){
+        CarsRS carsRS = given().spec(spec).
+                expect().
+                statusCode(200).
+                when().
+                get("detail/json/cars/map").as(CarsRS.class);
+
+
+        HashMap<MyPair, String> expectedMap = new HashMap<>();
+        expectedMap.put(new MyPair("AUDI", "100"), "AUDI");
+        expectedMap.put(new MyPair("BMW", "100"), "BMW");
+        assertTrue(carsRS.getCarsMap().equals(expectedMap));
+
     }
 
 }
