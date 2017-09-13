@@ -11,4 +11,9 @@ public class CarsRS {
     @JsonDeserialize(keyUsing = CarsDeserializer.class)
     private Map<MyPair, String> carsMap;
 
+//  имя переменной зависит от поля джейсона, который мы тестим { "carsMap": {
+//                                                                  "AUDI and 100": "AUDI",
+//                                                                  "BMW and 100": "BMW"
+//                                                                              } }
+
 }

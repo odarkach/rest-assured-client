@@ -5,6 +5,8 @@ import java.util.List;
 public class People {
 
 //либо если нужно, то ставим аннотацию @JsonName("person")
+// название класса зависит от ответа сервера и тегов, которые он высылает
+// здесь пример по ссылке
 
     private List<Person> person;
 

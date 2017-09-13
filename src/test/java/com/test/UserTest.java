@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import static com.test.TestUtils.getCars;
 import static com.test.TestUtils.getPeople;
+import static io.restassured.RestAssured.expect;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.testng.Assert.assertEquals;
@@ -169,4 +170,18 @@ public class UserTest {
 
     }
 
+
+    @Test
+    public void testAuthenticationWorking() {
+        expect().
+                statusCode(401).
+                when().
+                get("/service/secure/person");
+
+
+        expect().
+                statusCode(200).
+                given().auth().basic("admin", "admin").
+                get("/service/secure/person");
+    }
 }
