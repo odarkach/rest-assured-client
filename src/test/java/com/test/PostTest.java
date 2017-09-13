@@ -56,14 +56,14 @@ public class PostTest {
         Post[] posts = body.as(Post[].class);
 
 // Java 8 solution:
-//        long count = Arrays.stream(post).filter(e -> e.getUserId() == 1).count();
+//        long count = Arrays.stream(posts).filter(e -> e.getUserId() == 1).count();
 //        System.out.println("count = " + count);
 
         int counter = 0;
 
-        for (Post post: posts) {
-            if (post.getUserId() == 1){
-               ++counter;
+        for (Post post : posts) {
+            if (post.getUserId() == 1) {
+                ++counter;
             }
         }
 //        System.out.println("counter = " + counter);
